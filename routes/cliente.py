@@ -9,10 +9,15 @@ cliente_route= Blueprint('cliente',__name__)
 def lista_clientes ():
     return render_template("lista_clientes.html",clientes=clientes)
 
+
+
 #Obtem os dados somente de um cliente
-@cliente_route.route('/<int:cliente_id>',methods= ['GET'])
-def detalhe_cliente (client_id):
-    return render_template("detalhe_cliente.html")
+@cliente_route.route('/<int:cliente_id>')
+def detalhe_cliente (cliente_id):
+    cliente = list(filter(lambda c: c['id'] == cliente_id, clientes))[0]
+    return render_template('detalhe_cliente.html',cliente = cliente)
+
+
 
 #Insere um novo cliente
 @cliente_route.route('/',methods=['POST'])
@@ -58,8 +63,8 @@ def atualizar_cliente(cliente_id):
     #obter o usuario pelo id 
     for c in clientes :
         if c['id']==cliente_id:
-            c['nome'] == data['nome']
-            c['email'] == data['email']
+            c['nome'] = data['nome']
+            c['email'] = data['email']
             cliente_editado = c  
 
     # editar usuario
