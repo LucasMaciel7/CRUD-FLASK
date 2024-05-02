@@ -1,9 +1,11 @@
 from flask import Flask,url_for,render_template
-from routes.home import home_route
-from routes.cliente import cliente_route
+from configuration import configure_all
 
 #inicialização
 app = Flask(__name__) #identificar e organizar os recursos
-app.register_blueprint(cliente_route,url_prefix='/cliente')
-app.register_blueprint(home_route,url_prefix='/')
+
+configure_all(app)
+
 app.run(debug=True) # Modo desenvolvedor
+
+

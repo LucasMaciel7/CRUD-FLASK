@@ -1,10 +1,6 @@
-from peewee import SqliteDatabase
+import os
+from peewee import PostgresqlDatabase
+from dotenv import load_dotenv
+load_dotenv()
+db = PostgresqlDatabase(os.getenv('DATABASE_URI',''))
 
-db = SqliteDatabase('people.db')
-
-class Person(Model):
-    name = CharField()
-    birthday = DateField()
-
-    class Meta:
-        database = db # This model uses the "people.db" database.
